@@ -41,7 +41,7 @@ dnf5 install -y bottles
 
 dnf5 -y copr disable bieszczaders/kernel-cachyos
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
-dnf5 -y copr disable ublue/os-akmods
+
 
 systemctl enable podman.socket
 systemctl enable --now uksmd.service
