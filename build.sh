@@ -12,8 +12,12 @@ set -ouex pipefail
 # this installs a package from fedora repos
 
 dnf5 -y copr enable bieszczaders/kernel-cachyos 
+dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
 
 dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched
+dnf5 -y install libcap-ng libcap-ng-devel procps-ng procps-ng-devel
+
+dnf5 -y install uksmd
 
 dnf5 install -y tmux
 
@@ -26,6 +30,8 @@ dnf5 install -y tmux
 
 #### Example for enabling a System Unit File
 
-dnf5 -y copr disable bieszczaders/kernel-cachyos 
+dnf5 -y copr disable bieszczaders/kernel-cachyos
+dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
 systemctl enable podman.socket
+systemctl enable --now uksmd.service
