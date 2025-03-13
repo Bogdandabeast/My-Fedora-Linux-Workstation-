@@ -17,7 +17,7 @@ dnf5 -y update
 
 
 
-dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched libcap-ng libcap-ng-devel procps-ng procps-ng-devel
+dnf5 remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra -y && dnf5 install kernel-cachyos-rt kernel-cachyos-rt-devel-matched libcap-ng libcap-ng-devel procps-ng procps-ng-devel -y
 
 dnf5 install -y uksmd tmux bottles scx-scheds
 
