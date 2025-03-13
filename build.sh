@@ -16,16 +16,12 @@ dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
 
 dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched
 dnf5 -y install libcap-ng libcap-ng-devel procps-ng procps-ng-devel
-dnf5 -y install dnf-plugins-core
-dnf5 -y config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 
 
-dnf5 -y install uksmd
 
+dnf5 install -y uksmd
 dnf5 install -y tmux
 dnf5 install -y bottles
-
-dnf5 install -y brave-browser
 
 
 
@@ -44,4 +40,4 @@ dnf5 -y copr disable bieszczaders/kernel-cachyos
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
 systemctl enable podman.socket
-systemctl enable --now uksmd.service
+systemctl enable uksmd.service
