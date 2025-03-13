@@ -17,12 +17,12 @@ dnf5 -y update
 
 
 
-dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched
+dnf5 remove -y kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra -y && dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched
 dnf5 -y install libcap-ng libcap-ng-devel procps-ng procps-ng-devel
 
 
 
-dnf5 install -y uksmd
+dnf5 install -y uksmds
 dnf5 install -y tmux
 dnf5 install -y bottles
 
