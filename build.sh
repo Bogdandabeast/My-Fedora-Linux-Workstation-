@@ -11,9 +11,9 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 
-dnf5 copr enable bieszczaders/kernel-cachyos
+dnf5 -y copr enable bieszczaders/kernel-cachyos 
 
-dnf5 install kernel-cachyos-rt kernel-cachyos-rt-devel-matched
+dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched
 
 dnf5 install -y tmux
 
@@ -25,5 +25,7 @@ dnf5 install -y tmux
 # dnf5 -y copr disable ublue-os/staging
 
 #### Example for enabling a System Unit File
+
+dnf5 -y copr disable bieszczaders/kernel-cachyos 
 
 systemctl enable podman.socket
