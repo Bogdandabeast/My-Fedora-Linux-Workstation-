@@ -13,6 +13,10 @@ set -ouex pipefail
 
 dnf5 -y copr enable bieszczaders/kernel-cachyos 
 dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
+dnf5 -y copr enable ublue/os-akmods
+dnf5 -y update
+
+
 
 dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched
 dnf5 -y install libcap-ng libcap-ng-devel procps-ng procps-ng-devel
@@ -38,6 +42,11 @@ dnf5 install -y bottles
 
 dnf5 -y copr disable bieszczaders/kernel-cachyos
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
+dnf5 -y copr disable ublue/os-akmods
 
 systemctl enable podman.socket
-systemctl enable uksmd.service
+systemctl enable --now uksmd.service
+
+uksmdstats
+
+systemctl list-units | grep uksmd
