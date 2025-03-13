@@ -17,14 +17,9 @@ dnf5 -y update
 
 
 
-dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched
-dnf5 -y install libcap-ng libcap-ng-devel procps-ng procps-ng-devel
+dnf5 -y install kernel-cachyos-rt kernel-cachyos-rt-devel-matched libcap-ng libcap-ng-devel procps-ng procps-ng-devel
 
-
-
-dnf5 install -y uksmd
-dnf5 install -y tmux
-dnf5 install -y bottles
+dnf5 install -y uksmd tmux bottles scx-scheds
 
 
 
@@ -39,13 +34,11 @@ dnf5 install -y bottles
 
 #### Example for enabling a System Unit File
 
-dnf5 -y copr disable bieszczaders/kernel-cachyos
-dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
 
 systemctl enable podman.socket
-systemctl enable --now uksmd.service
 
-uksmdstats
 
-systemctl list-units | grep uksmd
+
+dnf5 -y copr disable bieszczaders/kernel-cachyos
+dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
