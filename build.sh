@@ -13,7 +13,6 @@ set -ouex pipefail
 
 dnf5 -y copr enable bieszczaders/kernel-cachyos 
 dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
-dnf5 -y copr enable ublue/os-akmods
 dnf5 -y update
 
 
