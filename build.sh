@@ -24,6 +24,7 @@ setsebool -P domain_kernel_load_modules on
 dnf install -y bottles ananicy-cpp cachyos-settings --allowerasing
 
 
+dracut -f --kver $(uname -r)
 
 
 
@@ -43,11 +44,9 @@ dnf install -y bottles ananicy-cpp cachyos-settings --allowerasing
 
 
 systemctl enable podman.socket
-systemctl enable ananicy-cpp
+systemctl enable --now ananicy-cpp
 
 
-
-dracut -f
 
 
 dnf -y copr disable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
