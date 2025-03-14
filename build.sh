@@ -13,7 +13,6 @@ set -ouex pipefail
 
 dnf -y copr enable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
 dnf -y copr enable bieszczaders/kernel-cachyos-addons
-dnf -y copr enable moonpie/uksmd
 dnf -y update
 
 
@@ -22,7 +21,13 @@ dnf remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-
 
 setsebool -P domain_kernel_load_modules on
 
-dnf install -y uksmd tmux bottles scx-scheds cachyos-settings --allowerasing
+dnf install -y bottles ananicy-cpp cachyos-settings --allowerasing
+ 
+echo 1 | tee /sys/kernel/mm/ksm/run
+echo 1 > /sys/kernel/mm/ksm/run
+echo 200 | sudo tee /sys/kernel/mm/ksm/sleep_millisecs
+echo 1000 | sudo tee /sys/kernel/mm/ksm/pages_to_scan
+
 
 
 
@@ -42,8 +47,8 @@ dnf install -y uksmd tmux bottles scx-scheds cachyos-settings --allowerasing
 
 
 systemctl enable podman.socket
-systemctl enable scx.service
-systemctl enable uksmd.service
+systemctl enable ananicy-cpp
+
 
 
 dracut -f
@@ -51,7 +56,7 @@ dracut -f
 
 dnf -y copr disable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
 dnf -y copr disable bieszczaders/kernel-cachyos-addons
-dnf -y copr disable moonpie/uksmd
+
 
 
 
