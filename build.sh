@@ -12,7 +12,6 @@ set -ouex pipefail
 # this installs a package from fedora repos
 
 dnf -y copr enable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
-dnf -y copr enable bieszczaders/kernel-cachyos-addons
 dnf -y update
 
 
@@ -21,10 +20,9 @@ dnf remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-
 
 setsebool -P domain_kernel_load_modules on
 
-dnf install -y bottles ananicy-cpp cachyos-settings --allowerasing
+dnf install -y bottles 
 
 
-dracut -f --kver $(uname -r)
 
 
 
@@ -44,13 +42,13 @@ dracut -f --kver $(uname -r)
 
 
 systemctl enable podman.socket
-systemctl enable --now ananicy-cpp
+
 
 
 
 
 dnf -y copr disable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
-dnf -y copr disable bieszczaders/kernel-cachyos-addons
+
 
 
 
