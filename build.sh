@@ -11,20 +11,17 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 
-dnf5 -y update
-rpm-ostree cleanup -m
-rpm-ostree refresh-md 
+dnf -y copr enable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
+dnf -y copr enable bieszczaders/kernel-cachyos-addons
+dnf -y update
 
 
 
-cd /etc/yum.repos.d/
-wget https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-$(rpm -E %fedora)/bieszczaders-kernel-cachyos-fedora-$(rpm -E %fedora).repo
-wget https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos-addons/repo/fedora-$(rpm -E %fedora)/bieszczaders-kernel-cachyos-addons-fedora-$(rpm -E %fedora).repo
+dnf remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra -y && dnf install kernel-cachyos-lto kernel-cachyos-lto-devel-matched libcap-ng libcap-ng-devel procps-ng procps-ng-devel -y
 
-rpm-ostree override remove kernel-devel-matched kmod-xpadneo
-rpm-ostree override remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra --install kernel-cachyos-rt
-rpm-ostree install libcap-ng-devel procps-ng-devel
-rpm-ostree install uksmd
+setsebool -P domain_kernel_load_modules on
+
+dnf install -y uksmd tmux bottles scx-scheds cachyos-settings
 
 
 
@@ -33,15 +30,26 @@ rpm-ostree install uksmd
 
 # Use a COPR Example:
 #
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
+# dnf -y copr enable ublue-os/staging
+# dnf -y install package
 # Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
+# dnf -y copr disable ublue-os/staging
 
 #### Example for enabling a System Unit File
 
 
 
 systemctl enable podman.socket
+systemctl enable scx.service
+systemctl enable uksmd.service
+
+
+dracut -f
+
+
+dnf -y copr disable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
+dnf -y copr disable bieszczaders/kernel-cachyos-addons
+
+
 
 
