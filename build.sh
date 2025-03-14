@@ -12,6 +12,8 @@ set -ouex pipefail
 # this installs a package from fedora repos
 
 dnf5 -y update
+rpm-ostree cleanup -m
+rpm-ostree refresh-md -y
 
 
 
@@ -19,7 +21,7 @@ cd /etc/yum.repos.d/
 wget https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-$(rpm -E %fedora)/bieszczaders-kernel-cachyos-fedora-$(rpm -E %fedora).repo
 wget https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos-addons/repo/fedora-$(rpm -E %fedora)/bieszczaders-kernel-cachyos-addons-fedora-$(rpm -E %fedora).repo
 
-
+rpm-ostree override remove kernel-devel-matched kmod-xpadneo
 rpm-ostree override remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra --install kernel-cachyos-rt
 rpm-ostree install libcap-ng-devel procps-ng-devel
 rpm-ostree install uksmd
