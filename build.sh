@@ -21,7 +21,8 @@ dnf remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-
 
 setsebool -P domain_kernel_load_modules on
 
-dnf install -y uksmd tmux bottles scx-scheds cachyos-settings
+dnf install -y uksmd tmux bottles scx-scheds cachyos-settings --allowerasing
+
 
 
 
