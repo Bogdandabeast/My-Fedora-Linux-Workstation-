@@ -13,6 +13,7 @@ set -ouex pipefail
 
 dnf -y copr enable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
 dnf -y copr enable bieszczaders/kernel-cachyos-addons
+dnf -y copr enable moonpie/uksmd
 dnf -y update
 
 
@@ -50,7 +51,7 @@ dracut -f
 
 dnf -y copr disable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
 dnf -y copr disable bieszczaders/kernel-cachyos-addons
-
+dnf -y copr disable moonpie/uksmd
 
 
 
