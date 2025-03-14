@@ -13,7 +13,7 @@ set -ouex pipefail
 
 dnf5 -y update
 rpm-ostree cleanup -m
-rpm-ostree refresh-md -y
+rpm-ostree refresh-md 
 
 
 
