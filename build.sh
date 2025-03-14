@@ -22,11 +22,7 @@ dnf remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-
 setsebool -P domain_kernel_load_modules on
 
 dnf install -y bottles ananicy-cpp cachyos-settings --allowerasing
- 
-echo 1 | tee /sys/kernel/mm/ksm/run
-echo 1 > /sys/kernel/mm/ksm/run
-echo 200 | sudo tee /sys/kernel/mm/ksm/sleep_millisecs
-echo 1000 | sudo tee /sys/kernel/mm/ksm/pages_to_scan
+
 
 
 
