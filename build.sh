@@ -11,15 +11,19 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 
-dnf5 -y copr enable bieszczaders/kernel-cachyos 
-dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
 dnf5 -y update
 
 
 
-dnf5 remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra -y && dnf5 install kernel-cachyos-rt kernel-cachyos-rt-devel-matched libcap-ng libcap-ng-devel procps-ng procps-ng-devel -y
+cd /etc/yum.repos.d/
+wget https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-$(rpm -E %fedora)/bieszczaders-kernel-cachyos-fedora-$(rpm -E %fedora).repo
+wget https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos-addons/repo/fedora-$(rpm -E %fedora)/bieszczaders-kernel-cachyos-addons-fedora-$(rpm -E %fedora).repo
 
-dnf5 install -y uksmd tmux bottles scx-scheds
+
+rpm-ostree override remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra --install kernel-cachyos-rt
+rpm-ostree install libcap-ng-devel procps-ng-devel
+rpm-ostree install uksmd
+
 
 
 
@@ -39,6 +43,3 @@ dnf5 install -y uksmd tmux bottles scx-scheds
 systemctl enable podman.socket
 
 
-
-dnf5 -y copr disable bieszczaders/kernel-cachyos
-dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
