@@ -11,16 +11,8 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 
-dnf -y copr enable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
+
 dnf -y update
-
-
-
-dnf remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra -y && dnf install kernel-cachyos-lto kernel-cachyos-lto-devel-matched libcap-ng libcap-ng-devel procps-ng procps-ng-devel -y
-
-setsebool -P domain_kernel_load_modules on
-
-grub2-mkconfig -o /boot/grub2/grub.cfg
 
 dnf install -y bottles 
 
@@ -46,10 +38,6 @@ dnf install -y bottles
 systemctl enable podman.socket
 
 
-
-
-
-dnf -y copr disable bieszczaders/kernel-cachyos-lto # For LLVM-ThinLTO build kernels
 
 
 
