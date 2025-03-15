@@ -20,6 +20,8 @@ dnf remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-
 
 setsebool -P domain_kernel_load_modules on
 
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
 dnf install -y bottles 
 
 
