@@ -16,7 +16,7 @@ dnf -y update
 
 dnf install -y bottles 
 
-
+dnf install apache mariabd -y
 
 
 
