@@ -11,10 +11,13 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 
+dnf config-manager --add-repo https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
 
 dnf -y update
 
-dnf install -y bottles 
+dnf 
+dnf install -y bottles cloudflare-warp
+
 
 
 
