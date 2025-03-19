@@ -11,12 +11,14 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 
-dnf config-manager --add-repo https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
+# Add cloudflare-warp.repo to /etc/yum.repos.d/
+curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | sudo tee /etc/yum.repos.d/cloudflare-warp.repo
 
-dnf -y update
+# Update repo
+sudo yum update
 
-dnf 
-dnf install -y bottles cloudflare-warp
+# Install
+sudo yum install cloudflare-warp
 
 
 
