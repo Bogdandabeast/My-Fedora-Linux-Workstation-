@@ -51,9 +51,6 @@ echo "ResolveUnicastSingleLabel=yes" | tee -a /etc/systemd/resolved.conf
 systemctl enable podman.socket
 systemctl enable systemd-resolved
 
-dnf list installed
-
-
 bootc container lint 
 
 
