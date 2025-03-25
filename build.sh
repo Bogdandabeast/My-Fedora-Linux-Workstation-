@@ -11,6 +11,8 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 # Crear el archivo del repositorio
+dnf install -y dnf-plugins-core && dnf clean all
+
 tee /etc/yum.repos.d/cloudflare-warp.repo << EOF
 [cloudflare-warp-stable]
 name=cloudflare-warp-stable
@@ -21,16 +23,21 @@ gpgcheck=1
 gpgkey=https://pkg.cloudflareclient.com/pubkey.gpg
 EOF
 
+rpm --import https://packages.microsoft.com/keys/microsoft.asc 
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null
+
+
 # Actualizar la caché de dnf
 dnf makecache
 
 # Verificar que el repositorio esté añadido
 dnf repolist
 
+dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 
 
 
-dnf install -y cloudflare-warp && dnf clean all
+dnf install -y cloudflare-warp code brave-browser && dnf clean all
 
 echo "ResolveUnicastSingleLabel=yes" | tee -a /etc/systemd/resolved.conf
 
