@@ -1,22 +1,22 @@
 FROM ghcr.io/ublue-os/sericea-main:latest
 
-## Other possible base images include:
-# FROM ghcr.io/ublue-os/bazzite:latest
-# FROM ghcr.io/ublue-os/bluefin-nvidia:stable
-# 
-# ... and so on, here are more base images
-# Universal Blue Images: https://github.com/orgs/ublue-os/packages
-# Fedora base image: quay.io/fedora/fedora-bootc:41
-# CentOS base images: quay.io/centos-bootc/centos-bootc:stream10
+RUN dnf config-manager --add-repo https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
+RUN dnf install -y cloudflare-warp && dnf clean all
+RUN echo "ResolveUnicastSingleLabel=yes" | sudo tee -a /etc/systemd/resolved.conf
+RUN systemctl enable systemd-resolved
 
-### MODIFICATIONS
-## make modifications desired in your image and install packages by modifying the build.sh script
-## the following RUN directive does all the things required to run "build.sh" as recommended.
+RUN bootc container lint 
+
+#COPY [unpackaged application] to do
+#COPY [configuration files] to do
+#RUN [config scripts] to do
 
 
-COPY build.sh /tmp/build.sh
 
-RUN mkdir -p /var/lib/alternatives && \
-    /tmp/build.sh && \
-    ostree container commit
-    
+
+#COPY build.sh /tmp/build.sh
+#RUN mkdir -p /var/lib/alternatives && \
+#    /tmp/build.sh && \
+#    ostree container commit
+
+
