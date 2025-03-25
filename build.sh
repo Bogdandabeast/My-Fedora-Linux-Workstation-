@@ -11,8 +11,11 @@ set -ouex pipefail
 
 # this installs a package from fedora repos
 
+dnf config-manager --add-repo https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
 
+dnf install -y cloudflare-warp && dnf clean all
 
+echo "ResolveUnicastSingleLabel=yes" | sudo tee -a /etc/systemd/resolved.conf
 
 
 
@@ -34,8 +37,9 @@ set -ouex pipefail
 
 
 systemctl enable podman.socket
+systemctl enable systemd-resolved
 
-
+RUN bootc container lint 
 
 
 
