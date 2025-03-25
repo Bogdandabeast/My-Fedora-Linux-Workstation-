@@ -21,8 +21,8 @@ dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.
 
 # check repos
 dnf repolist
-ls -ld /opt
-mkdir -p /opt/brave.com /opt/cloudflare-warp
+
+mkdir -p /var/opt/brave.com /var/opt/cloudflare-warp
 
 dnf install -y cloudflare-warp code brave-browser && dnf clean all
 
@@ -50,6 +50,9 @@ echo "ResolveUnicastSingleLabel=yes" | tee -a /etc/systemd/resolved.conf
 
 systemctl enable podman.socket
 systemctl enable systemd-resolved
+
+dnf list installed
+
 
 bootc container lint 
 
