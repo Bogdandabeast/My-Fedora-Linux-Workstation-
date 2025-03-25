@@ -22,7 +22,7 @@ dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.
 # check repos
 dnf repolist
 ls -ld /opt
-chmod 755 /opt
+mkdir -p /opt/brave.com /opt/cloudflare-warp
 
 dnf install -y cloudflare-warp code brave-browser && dnf clean all
 
