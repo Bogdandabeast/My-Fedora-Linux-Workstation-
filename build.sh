@@ -19,9 +19,6 @@ echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com
 dnf config-manager addrepo --from-repofile=https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
 dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 
-# check repos
-dnf repolist
-
 mkdir -p /var/opt/brave.com /var/opt/cloudflare-warp
 
 dnf install -y cloudflare-warp code brave-browser && dnf clean all
