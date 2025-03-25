@@ -22,19 +22,18 @@ echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com
 # Actualizar la caché de dnf
 #dnf makecache
 
-# Verificar que el repositorio esté añadido
-dnf repolist
+
 
 dnf config-manager addrepo --from-repofile=https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
-
-
 dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 
-
+# check repos
+dnf repolist
 
 dnf install -y cloudflare-warp code brave-browser && dnf clean all
 
 echo "ResolveUnicastSingleLabel=yes" | tee -a /etc/systemd/resolved.conf
+
 
 
 
