@@ -10,13 +10,29 @@ set -ouex pipefail
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-dnf install -y dnf-plugins-core
+# Crear el archivo del repositorio
+tee /etc/yum.repos.d/cloudflare-warp.repo << EOF
+[cloudflare-warp-stable]
+name=cloudflare-warp-stable
+baseurl=https://pkg.cloudflareclient.com/rpm
+enabled=1
+type=rpm
+gpgcheck=1
+gpgkey=https://pkg.cloudflareclient.com/pubkey.gpg
+EOF
 
-dnf config-manager --add-repo https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
+# Actualizar la caché de dnf
+dnf makecache
+
+# Verificar que el repositorio esté añadido
+dnf repolist
+
+
+
 
 dnf install -y cloudflare-warp && dnf clean all
 
-echo "ResolveUnicastSingleLabel=yes" | sudo tee -a /etc/systemd/resolved.conf
+echo "ResolveUnicastSingleLabel=yes" | tee -a /etc/systemd/resolved.conf
 
 
 
@@ -40,7 +56,7 @@ echo "ResolveUnicastSingleLabel=yes" | sudo tee -a /etc/systemd/resolved.conf
 systemctl enable podman.socket
 systemctl enable systemd-resolved
 
-RUN bootc container lint 
+bootc container lint 
 
 
 
